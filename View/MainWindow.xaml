@@ -1,0 +1,73 @@
+﻿<Window x:Class="Hangman.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Hangman.ViewModel"
+        mc:Ignorable="d"
+        Title="Start game"
+        Height="450"
+        Width="800"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:MainWindowVM x:Name="MainWindowVM"/>
+    </Window.DataContext>
+    <Window.Resources>
+        <BitmapImage x:Key="DefaultImage" UriSource="/Resources/NoImage.png" />
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="#141E30" Offset="0.0" />
+                <GradientStop Color="#243B55" Offset="1.0" />
+            </LinearGradientBrush>
+        </Grid.Background>
+        <ListView ItemsSource="{Binding PlayerList}"
+                  SelectedItem="{Binding SelectedPlayer}"
+                  HorizontalAlignment="Left"
+                  Height="300"
+                  Margin="40,20,0,0"
+                  VerticalAlignment="Top"
+                  Width="280"
+                  FontSize="14">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding UserName}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid HorizontalAlignment="Left" Height="60" Margin="20,340,0,0" VerticalAlignment="Top" Width="762">
+            <Button x:Name="NewUserButton" 
+                    Content="New User" 
+                    Command="{Binding NewUserCommand}"
+                    HorizontalAlignment="Left" 
+                    Margin="20,10,0,0" 
+                    VerticalAlignment="Top" 
+                    Width="120" Height="40" 
+                    FontSize="14"/>
+            <Button x:Name="DeleteUserButton"
+                    Content="Delete User"
+                    Command="{Binding DeleteUserCommand}"
+                    HorizontalAlignment="Left"
+                    Margin="180,10,0,0"
+                    VerticalAlignment="Top"
+                    Width="120"
+                    Height="40"
+                    FontSize="14"/>
+            <Button x:Name="PlayButton"
+                    Content="Play!"
+                    Command="{Binding PlayCommand}"
+                    HorizontalAlignment="Left"
+                    Margin="620,10,0,0"
+                    VerticalAlignment="Top"
+                    Width="120"
+                    Height="40"
+                    FontSize="14"/>
+        </Grid>
+        <Image HorizontalAlignment="Left" Height="160" Margin="480,60,0,0" VerticalAlignment="Top" Width="160"
+               Source="{Binding PlayerImage, FallbackValue={StaticResource DefaultImage}}"/>
+        <TextBlock x:Name="GreetingMessage" HorizontalAlignment="Left" Margin="400,240,0,0" TextWrapping="Wrap" Text="Welcome to Hangman!" VerticalAlignment="Top" Height="50" Width="320" FontSize="20" TextAlignment="Center" FontWeight="Bold" Foreground="#FFAECDCF"/>
+
+    </Grid>
+</Window>
